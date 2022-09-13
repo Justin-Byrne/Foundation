@@ -1,0 +1,795 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Loops</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="f667c86b-e8b3-4465-acba-075ae47f6768" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">🧩</span></div><h1 class="page-title">Loops</h1></header><div class="page-body"><hr id="59351ebe-4bc2-48dd-8365-50d7822a6a4d"/><p id="0e657d7f-fe5e-4b9c-86f8-bf8dbdddee58" class="">Repeating structures for repeating actions</p><p id="caf6eeed-27b3-405b-9192-8cfb3e4ebef0" class="">
+</p><h2 id="ad0ffa12-461e-41c8-8a42-94fbead28bae" class="">For loop</h2><hr id="5b20e0c4-5cc7-401d-aa1a-b95a412d4f35"/><p id="e9fe6eee-91fc-4ba7-847e-b295f5de666d" class="">Automatically repeats and increments until a condition is met</p><p id="900451de-0dc3-43c3-b99e-135b3fcdcb58" class="">
+</p><p id="63d11264-80a9-4c47-b530-18263405e40d" class=""><strong>Structure</strong></p><pre id="6067c7c6-a74d-4fc7-9de9-0f3411ffbdfc" class="code"><code>for ( init; condition; increment ) 
+{
+    // code ...
+}</code></pre><p id="87877bc8-5a02-4207-9389-7ac4d154e614" class="">
+</p><p id="b724ed66-c0af-4065-994e-18076cf5e5ab" class=""><strong>init: </strong>allows you to declare and set a loop control variable </p><p id="73806744-6acb-47d8-906d-c68c32d59021" class="">
+</p><p id="ea60dafb-4062-4389-99e8-6be3a9ab91d8" class=""><strong>Example: define initializer variable</strong></p><pre id="126d4dbc-9132-48ae-9aec-cf7e98cf6d4f" class="code"><code>for ( int i = 0; condition; increment ) 
+{
+    // code ...
+}</code></pre><p id="762b4d87-b4aa-4336-a23a-a9b3394fd369" class="">
+</p><p id="6309a093-ac81-4019-abe2-0998bdff5a6a" class="">Here, we’ve declared an index variable ( named <code><strong>i</strong></code><strong> </strong>), that we’ll use for loop control</p><p id="d46b794f-9334-42c6-ab34-b6e85db1a740" class="">
+</p><p id="0e42183f-b0a1-4e30-a00d-96958a88f80a" class=""><strong>Example: define conditional statement</strong></p><pre id="e42e7228-e945-4016-b20e-947a59202747" class="code"><code>for ( int i = 0; i &lt; 5; increment ) 
+{
+    // code ...
+}</code></pre><p id="d924e924-3918-44fe-9c06-1e3242d06eec" class="">
+</p><p id="55b094dc-374e-403e-9e5a-8df3107f7bcc" class="">Here, we’ve set the condition to be evaluated. Once <code>i</code> is no longer less than 5, the body of the code will no longer execute, and the program will exit the <code>for</code> loop.</p><p id="332d52ad-3ce7-41ea-9a19-6cd3ccd306af" class="">
+</p><p id="ad51ac64-13b0-41d0-b00a-ef4e9f5c501b" class=""><strong>Example: define increment</strong></p><pre id="3d7199f6-2d6c-4fcc-b093-b9e44e73b15a" class="code"><code>for ( int i = 0; i &lt; 5; i = i + 1 ) 
+{
+    // code ...
+}</code></pre><p id="b83039d3-9665-48de-a4fa-107268e85643" class="">
+</p><p id="53373130-b3dd-43e1-b8dd-1049a8180e41" class="">Here, we’ve set how our index variable ( <code>i</code> ) should increment after each loop. </p><p id="26d2d728-b9eb-4db9-837f-cbcac97beab6" class="">
+</p><p id="e0f066cf-940d-4229-9f00-0c2f384df50b" class=""><strong>Example: </strong></p><pre id="419637e0-c159-472d-829c-b06f0d18c4bd" class="code"><code>for ( int i = 0; i &lt; 5; i = i + 1 ) 
+{
+		printf ( &quot;Loop: %d \n&quot;, i );
+}</code></pre><p id="81f28456-2b21-4f3d-8af6-6719cbd28728" class="">
+</p><p id="437677e7-47c7-461c-9000-12d502bbceac" class=""><strong>Prints out:</strong></p><pre id="d7d7a6c5-0dab-43c9-9d76-5f82502b99dd" class="code"><code>Loop: 0 
+Loop: 1 
+Loop: 2 
+Loop: 3 
+Loop: 4</code></pre><p id="02081e96-0664-47d1-84ae-935357ecfc68" class="">
+</p><p id="d285cd21-3722-47ff-952e-9a74dc74aa3b" class=""><strong>Short form</strong></p><hr id="1551dfd6-1563-45fb-906a-2e2706421578"/><p id="99e1bc4a-c686-4571-ad7b-13951e122954" class="">
+</p><p id="656d1f3d-834e-46ae-93d0-54774465cad0" class="">You can also write these in short form !</p><p id="824723d3-8f5b-42e2-a7a7-a763cc92448f" class="">
+</p><p id="7c11080d-4d0d-4082-8b4d-365e710fc7eb" class=""><strong>Example: </strong></p><pre id="b7dc38cb-994f-4e41-9bf0-f63fd0adaa2e" class="code"><code>for ( int i = 0; i &lt; 5; i = i + 1 ) 
+		printf ( &quot;Loop: %d \n&quot;, i );
+
+// equals to
+// for ( int i = 0; i &lt; 5; i = i + 1 ) 
+// {
+// 		printf ( &quot;Loop: %d \n&quot;, i );
+// }</code></pre><h2 id="a94de9e1-227e-43db-892b-e97fe8355e50" class="">While loop</h2><hr id="00a02042-51e5-4433-b530-a12334699353"/><p id="501f0ec4-0269-41fc-ae61-65c4264f1905" class="">While we’re here, let’s do this !</p><p id="261d3495-8f03-473a-a632-717cf8498647" class="">
+</p><p id="20ef9640-fbfa-4279-87c3-a74ee03b9708" class=""><strong>Structure</strong></p><pre id="54c2ca36-7c66-47c3-a403-3030d2564806" class="code"><code>while ( condition ) 
+{
+    // code ...
+}</code></pre><p id="6751cdf9-a752-4ed3-bc9c-51a900a8f31e" class="">
+</p><p id="d9363acb-4063-4551-81cf-15ea3de1d34b" class="">These operate very similarly to <code>if</code> statements, however, they will continue to loop ( indefinitely ) until the conditional equals <code>false</code></p><p id="b2a126b3-512b-48eb-b084-dbe9c828522f" class="">
+</p><p id="9bfe207c-2245-4834-9383-7926a99ffa6b" class=""><strong>Example: </strong></p><pre id="98eb068b-c634-4d8f-8ef2-22822678c249" class="code code-wrap"><code>int a = 10;
+
+while( a &lt; 15 )         // while &#x27;a&#x27; is less than 20
+{
+    printf ( &quot;value of a: %d\n&quot;, a );
+
+    a++;                // this is equal to a = a + 1
+}</code></pre><p id="cba11067-5678-479d-919c-a1f771f34cce" class="">
+</p><p id="a00ec847-d008-4c65-98a0-0bb6129124a3" class=""><strong>Prints out:</strong></p><pre id="eb6f79cf-bd75-4d85-b748-218f645354df" class="code"><code>value of a: 10
+value of a: 11
+value of a: 12
+value of a: 13
+value of a: 14</code></pre><h2 id="900a67a3-613c-4039-8b32-42f3a2f7365e" class="">Do while loop</h2><hr id="a0bba1c0-37be-488a-bd91-da0847395302"/><p id="402f7785-7690-460a-9e1d-8c687826013b" class="">Let’s do this !</p><p id="807b0b8d-1066-4b8e-95ad-f24673e29e9c" class="">
+</p><p id="d4b26620-3cad-4028-8527-f8826b576fd4" class=""><strong>Structure</strong></p><pre id="f89f8e60-cd4e-40ae-aad9-11cf5ad15fda" class="code"><code>do 
+{
+    // code ...
+} 
+while ( condition );</code></pre><p id="7ed3de1d-f7ea-4113-bc50-fa12ce440400" class="">
+</p><p id="3d0b1a1a-9cde-4b63-bf03-1919439ae4a3" class="">These operate just like <code>while</code> loops, except they execute the body at lease once, prior to evaluating the condition below.</p><p id="20cb5d6e-cf1b-41b3-9477-4afcf164581f" class="">
+</p><p id="bc94c3d3-4da3-4fb9-a906-6bfa97ee9163" class=""><strong>Example: </strong></p><pre id="166112b9-9398-4fb5-87d1-7868a681782c" class="code code-wrap"><code>int a = 10;
+
+do 
+{
+		printf ( &quot;value of a: %d\n&quot;, a );
+    
+    a = a + 2;
+}
+while( a &lt; 20 );</code></pre><p id="fbe8fd75-2af4-4a2e-97f9-988a2af264ed" class="">
+</p><p id="8acf5725-402b-4e94-8da0-52480953c6bf" class=""><strong>Prints out:</strong></p><pre id="7d14d41b-4c07-43e2-a6d5-4246b82e45f8" class="code"><code>value of a: 10
+value of a: 12
+value of a: 14
+value of a: 16
+value of a: 18</code></pre><p id="c0100d3b-9191-4001-960b-10bacaa184a7" class="">
+</p><h2 id="a4c19b78-5d1a-483b-9e03-bd0258921c62" class="">Break</h2><hr id="5a1cc389-de54-4d1b-9f20-49cb2458657a"/><p id="9d6483a5-6872-4723-ae65-dddc73e8599a" class="">Let’s break some loops !</p><p id="ac87ab77-d734-40c9-b13b-5763f22e1096" class="">
+</p><p id="4817c417-d150-47f2-9531-46202d13e145" class=""><code>break</code> statement breaks out of the current loop, and continues the rest of the program</p><p id="3326c260-3446-4456-bb7e-b5a02249bbce" class="">
+</p><p id="568b0e8b-a817-4adf-8066-9f88852bb901" class=""><strong>Example:</strong></p><pre id="80835d28-e001-474a-b268-7f9f55dcfe2b" class="code"><code>for ( int i = 0; i &lt; 5; i++ ) 
+{
+    if ( i == 2 )  
+    {
+				break;       // use break to terminate loop execution
+    }
+
+    printf ( &quot;i: %d \n&quot;, i );
+}</code></pre><p id="cf708c98-02de-43b1-9a60-86487137e356" class="">
+</p><p id="079e0063-4df0-4819-a6ae-2f9b935ea69f" class=""><strong>Prints out:</strong></p><pre id="3a5377b7-fc0f-462c-bf4d-7d3466fbfeed" class="code"><code>i: 0 
+i: 1</code></pre><p id="f7865602-bf45-492b-873a-ec36d4e52783" class="">
+</p><p id="4fae47ac-c1a1-469c-a9aa-67cbbec4495a" class="">This only prints out two twice, because after the internal <code>if</code> statement confirms that <code>i</code> is equal to 2, it <code>break</code>s out of the <code>for</code> loop.</p><p id="a8f066ee-ba0f-4eb0-98d7-d21376163ce7" class="">
+</p><p id="9bebc16b-745e-4ad5-a8cd-467c00fc2c43" class="">This only breaks out of the nearest nested loop !</p><p id="60a42e5f-9e95-4198-99f1-95cc9cce2948" class="">
+</p><p id="83fe1252-78d3-4c9f-bb62-4ae3a1691a0f" class=""><strong>Example:</strong></p><pre id="59f91175-2c18-4eba-89a1-280428f27640" class="code"><code>for ( int A = 0; A &lt; 5; A++)
+{
+	  printf ( &quot;\n\nA: %d \n\n&quot;, A );
+        
+    for ( int B = 0; B &lt; 5; B++ )
+    {
+			printf ( &quot;B: %d\t&quot;, B );
+            
+        if ( A &gt; 1 &amp;&amp; B == 2 )
+        {
+            break;       // use break to terminate loop execution
+        }
+    }
+}</code></pre><p id="e4693d78-4ea8-44be-987e-dade57221b8f" class="">
+</p><p id="88cee378-d512-42ce-b2f9-f5cc35b532d6" class="">Prints out:</p><pre id="dbc92017-6df9-4b13-8e69-e855185aba7e" class="code"><code>A: 0 
+
+B: 0	B: 1	B: 2	B: 3	B: 4	
+
+A: 1 
+
+B: 0	B: 1	B: 2	B: 3	B: 4	
+
+A: 2 
+
+B: 0	B: 1	B: 2	
+
+A: 3 
+
+B: 0	B: 1	B: 2	
+
+A: 4 
+
+B: 0	B: 1	B: 2</code></pre></div></article></body></html>
